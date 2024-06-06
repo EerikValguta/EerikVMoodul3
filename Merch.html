@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merch | Martial Gods</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/Logo.webp" alt="Martial Gods Logo">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Merch.html">Merch</a></li>
+                <li><a href="Contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="merch-section">
+            <div class="merch-grid">
+                <div class="merch-item" data-price="15" data-type="hat">
+                    <a href="DetailsCB.html"><img src="img/Cap.webp" alt="Black Hat Martial Gods"></a>
+                    <p>15$<br>Black Hat Martial Gods</p>
+                </div>
+                <div class="merch-item" data-price="30" data-type="mousepad">
+                    <a href="DetailsMB.html"><img src="img/Mouse.webp" alt="Black Mousepad Martial Gods"></a>
+                    <p>30$<br>Black Mousepad Martial Gods</p>
+                </div>
+                <div class="merch-item" data-price="25" data-type="tshirt">
+                    <a href="Details.html"><img src="img/Shirt.webp" alt="Black T-shirt Martial Gods"></a>
+                    <p>25$<br>Black T-shirt Martial Gods</p>
+                </div>
+                <div class="merch-item" data-price="15" data-type="hat">
+                    <a href="DetailsCW.html"><img src="img/Cap W.webp" alt="White Hat Martial Gods"></a>
+                    <p>15$<br>White Hat Martial Gods</p>
+                </div>
+                <div class="merch-item" data-price="30" data-type="mousepad">
+                    <a href="DetailsMW.html"><img src="img/Mouse W.webp" alt="White Mousepad Martial Gods"></a>
+                    <p>30$<br>White Mousepad Martial Gods</p>
+                </div>
+                <div class="merch-item" data-price="25" data-type="tshirt">
+                    <a href="DetailsWS.html"><img src="img/Shirt W.webp" alt="White T-shirt Martial Gods"></a>
+                    <p>25$<br>White T-shirt Martial Gods</p>
+                </div>
+            </div>
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <button class="filter-button" id="filterPriceButton">Filter: Price</button>
+                    <div class="filter-dropdown" id="priceFilterDropdown">
+                        <button onclick="sortMerch('lowToHigh')">Low to High</button>
+                        <button onclick="sortMerch('highToLow')">High to Low</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <button class="filter-button" id="filterTypeButton">Filter: Type</button>
+                    <div class="filter-dropdown" id="typeFilterDropdown">
+                        <button onclick="filterMerch('all')">All</button>
+                        <button onclick="filterMerch('hat')">Hats</button>
+                        <button onclick="filterMerch('mousepad')">Mousepads</button>
+                        <button onclick="filterMerch('tshirt')">T-shirts</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Martial Gods. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('filterPriceButton').addEventListener('click', () => {
+            const dropdown = document.getElementById('priceFilterDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        document.getElementById('filterTypeButton').addEventListener('click', () => {
+            const dropdown = document.getElementById('typeFilterDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        });
+
+        function sortMerch(order) {
+            const merchItems = Array.from(document.querySelectorAll('.merch-item'));
+            const merchGrid = document.querySelector('.merch-grid');
+
+            merchItems.sort((a, b) => {
+                const priceA = parseInt(a.getAttribute('data-price'));
+                const priceB = parseInt(b.getAttribute('data-price'));
+                return order === 'lowToHigh' ? priceA - priceB : priceB - priceA;
+            });
+
+            merchGrid.innerHTML = '';
+            merchItems.forEach(item => merchGrid.appendChild(item));
+        }
+
+        function filterMerch(type) {
+            const merchItems = document.querySelectorAll('.merch-item');
+
+            merchItems.forEach(item => {
+                if (type === 'all' || item.getAttribute('data-type') === type) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
